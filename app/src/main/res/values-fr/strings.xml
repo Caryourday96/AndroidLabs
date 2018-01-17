@@ -5,4 +5,6 @@
     <string name="app_name">AndroidLabs</string>
     <string name="hello_message">Bonjour le monde</string>
     <string name="button"> Je suis un bouton</string>
+    <string name="login"> s\'identifier</string>
+    <string name="switchbutton"> What does this do? </string>
 </resources>
