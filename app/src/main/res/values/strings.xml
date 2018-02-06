@@ -3,6 +3,8 @@
     <string name="hello_message">Hello World</string>
     <string name="button"> I\'m a button</string>
     <string name="login"> Login</string>
+    <string name="password">password</string>
     <string name="switchbutton"> What does this do? </string>
+    <string name="preference_file_key">email@domain.com</string>
 </resources>
 

@@ -2,9 +2,10 @@
 
 
 <resources>
-    <string name="app_name">AndroidLabs</string>
+    <string name="app_name">Android laboratoires</string>
     <string name="hello_message">Bonjour le monde</string>
     <string name="button"> Je suis un bouton</string>
-    <string name="login"> s\'identifier</string>
-    <string name="switchbutton"> What does this do? </string>
+    <string name="login">  s\'identifier</string>
+    <string name="password"> mot de passe</string>
+    <string name="switchbutton">le bouton de l'interrupteur ? </string>
 </resources>
