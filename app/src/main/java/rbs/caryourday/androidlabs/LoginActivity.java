@@ -21,6 +21,18 @@ public class LoginActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        /*Saving the user's input*/
+        /*Accessing the strings.xml string*/
+        SharedPreferences s = getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
+        SharedPreferences.Editor edit = s.edit();
+        int numLaunches = s.getInt("NumRuns", 0);
+
+        edit.putInt("NumRuns", numLaunches + 1); //ran one more time
+        edit.commit();
+       // edit.putString("Name", "Kayode");
+        edit.commit();
+
+
         /*Making a reference to the button in the .xml file */
         Button loginbutton = findViewById(R.id.button2);
 
@@ -33,11 +45,7 @@ public class LoginActivity extends Activity {
             }
         });
 
-
-        /*Saving the user's input*/
-        /*Accessing the strings.xml string*/
-       SharedPreferences s = getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
-    }
+   }
 
     protected void launchActivity(){
         /*Switching to the other Activity*/

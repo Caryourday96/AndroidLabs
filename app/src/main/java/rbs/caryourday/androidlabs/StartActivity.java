@@ -36,8 +36,24 @@ public class StartActivity extends Activity {
     protected void launchListItemsActivity() {
         Intent intent = new Intent(StartActivity.this, ListItemsActivity.class);
 
-        startActivityForResult(intent, 50);
+        startActivityForResult(intent, 10);
     }
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        /*Step 11*/
+        /*Checking to see if we've returned to the StartActivity from ListItemsActivity*/
+        if (requestCode == 10) {
+            Log.i(ACTIVITY_NAME, "Returned to StartActivity.onActivityResult");
+            if (resultCode == RESULT_OK) {
+
+                /*A Toast object is a simple message box which will appear at the bottom of the screen*/
+                String messagePassed = data.getStringExtra("Response");
+                Toast toast = Toast.makeText(StartActivity.this, messagePassed, Toast.LENGTH_LONG);
+                toast.show();
+
+            }//end of second if
+        }//end of first if
+    }//end of onActivityResult()
 
     protected void onResume(){
         super.onResume();
