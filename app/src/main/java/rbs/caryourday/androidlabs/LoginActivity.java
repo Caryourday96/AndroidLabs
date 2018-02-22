@@ -1,9 +1,9 @@
 package rbs.caryourday.androidlabs;
 
 import android.app.Activity;
-import android.content.SharedPreferences;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -21,20 +21,31 @@ public class LoginActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+
         /*Saving the user's input*/
         /*Accessing the strings.xml string*/
-        SharedPreferences s = getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
-        SharedPreferences.Editor edit = s.edit();
-        int numLaunches = s.getInt("NumRuns", 0);
+        SharedPreferences sharedPref = getApplicationContext().getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
+        SharedPreferences.Editor s = sharedPref.edit();
+        s.putInt(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
+        s.commit();
 
-        edit.putInt("NumRuns", numLaunches + 1); //ran one more time
-        edit.commit();
+
+        //  SharedPreferences s = getActivity.getPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
+        // SharedPreferences.Editor edit = s.edit();
+
+        // int numLaunches = s.getInt("NumRuns", 0);
+
+        //edit.putInt("NumRuns", numLaunches + 1); //ran one more time
+        // edit.commit();
        // edit.putString("Name", "Kayode");
-        edit.commit();
+        //edit.commit();
 
 
         /*Making a reference to the button in the .xml file */
         Button loginbutton = findViewById(R.id.button2);
+
+        s.putString("name", "Kayode");
+        s.commit();
 
         /*Giving the button some function*/
         loginbutton.setOnClickListener(new View.OnClickListener() {
@@ -45,7 +56,8 @@ public class LoginActivity extends Activity {
             }
         });
 
-   }
+
+    }
 
     protected void launchActivity(){
         /*Switching to the other Activity*/
@@ -63,6 +75,9 @@ public class LoginActivity extends Activity {
     protected void onStart(){
         super.onStart();
         Log.i(ACTIVITY_NAME,"In onStart()");
+        SharedPreferences s = getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
+        SharedPreferences shared = getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
+
     }
 
     protected void onPause(){

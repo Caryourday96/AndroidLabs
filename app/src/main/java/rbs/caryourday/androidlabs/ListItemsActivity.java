@@ -3,19 +3,19 @@ package rbs.caryourday.androidlabs;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageButton;
-import android.content.Intent;
 import android.widget.Switch;
 import android.widget.Toast;
-import 	android.widget.CheckBox;
-import android.content.DialogInterface;
-import android.widget.CompoundButton;
 
 public class ListItemsActivity extends Activity {
 
@@ -131,7 +131,7 @@ public class ListItemsActivity extends Activity {
         });
     }//end of onCreate()
 
-    /*Whenever we take a picture with the button, the picture we took will replace the camer icon
+    /*Whenever we take a picture with the button, the picture we took will replace the camera icon
      * that was initially there before we took any picture.*/
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
