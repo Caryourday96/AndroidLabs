@@ -12,7 +12,7 @@ import android.widget.Toast;
 public class StartActivity extends Activity {
 
     protected static final String ACTIVITY_NAME="StartActivity";
-    Button startButton, startChat;
+    Button startButton, weatherButton, startChat;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +42,17 @@ public class StartActivity extends Activity {
 
                 Log.i(ACTIVITY_NAME, "User clicked Start Chat");
                 Intent intent = new Intent(StartActivity.this, ChatWindow.class);
+                startActivity(intent);
+
+            }
+        });
+
+        weatherButton = findViewById(R.id.weatherButton);
+        weatherButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.i(ACTIVITY_NAME, "User clicked Weather Button");
+                Intent intent = new Intent(StartActivity.this, WeatherForecast.class);
                 startActivity(intent);
 
             }

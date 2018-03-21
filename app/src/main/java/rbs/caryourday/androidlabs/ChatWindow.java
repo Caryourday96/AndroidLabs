@@ -46,7 +46,6 @@ public class ChatWindow extends Activity {
         final ChatDatabaseHelper chatDatabaseHelper = new ChatDatabaseHelper(context);
         db = chatDatabaseHelper.getWritableDatabase();
         final ContentValues cv = new ContentValues();
-
         final Cursor cursor = db.query(TABLE_NAME, new String[]{KEY_id, KEY_MESSAGE},
                 null, null, null, null, null, null);
 

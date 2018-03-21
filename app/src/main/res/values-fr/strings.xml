@@ -13,5 +13,6 @@
     <string name="ok">ok</string>
     <string name="start_chat"> StartChat </string>
     <string name="send">Envoyer</string>
+    <string name="check_the_weather"> Météo </string>
     <string name="switchbutton">le bouton de l\'interrupteur ? </string>
 </resources>
