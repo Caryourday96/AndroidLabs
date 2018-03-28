@@ -1,9 +1,12 @@
 package rbs.caryourday.androidlabs;
 
-
 import android.app.Activity;
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -11,9 +14,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -30,6 +35,12 @@ public class ChatWindow extends Activity {
     private static SQLiteDatabase db;
     private boolean frameLayoutExists = true;
 
+    Cursor cursor;
+    ChatAdapter messageAdapter;
+    Boolean isTablet;
+    FrameLayout tabletFrameLayout;
+    int requestCode = 1;
+    int messageIndex;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +52,15 @@ public class ChatWindow extends Activity {
         final ChatAdapter messageAdapter = new ChatAdapter(this);
         listView.setAdapter(messageAdapter);
 
+        tabletFrameLayout = findViewById(R.id.frameLayout);
+
+        if (tabletFrameLayout == null) {
+            isTablet = false;
+            Log.i(ACTIVITY_NAME, "Using phone layout");
+        } else {
+            isTablet = true;
+            Log.i(ACTIVITY_NAME, "Using tablet layout");
+        }
 
         final Context context = getApplicationContext();
         final ChatDatabaseHelper chatDatabaseHelper = new ChatDatabaseHelper(context);
@@ -66,6 +86,42 @@ public class ChatWindow extends Activity {
         for (int num = 0; num < cursor.getColumnCount(); num++) {
             Log.i(ACTIVITY_NAME, cursor.getColumnName(num));
         }
+        final Intent intent = new Intent(this, MessageDetails.class);
+
+        //when user click on the message, show message detatils in a fragment
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String message = messageAdapter.getItem(position);
+                long messageId = messageAdapter.getItemId(position);
+
+                Bundle bundle = new Bundle();
+                bundle.putLong("id", messageId);
+                bundle.putString("message", message);
+                bundle.putBoolean("isTablet", isTablet);
+
+                if (isTablet == true) {
+
+                    Fragment messageFragment = new Fragment();
+                    messageFragment.setArguments(bundle);
+                    FragmentManager fragmentManager = getFragmentManager();
+
+                    if (fragmentManager.getBackStackEntryCount() > 0) {
+                        FragmentManager.BackStackEntry first = fragmentManager.getBackStackEntryAt(0);
+                        fragmentManager.popBackStack(first.getId(), FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                    }
+
+                    FragmentTransaction ft = fragmentManager.beginTransaction();
+                    ft.replace(R.id.frameLayout, messageFragment).addToBackStack(null);
+                    ft.commit();
+                } else {
+                    Intent intent = new Intent(ChatWindow.this, MessageDetails.class);
+                    intent.putExtra("bundle", bundle);
+                    startActivityForResult(intent, requestCode);
+                }
+            }
+        });
+
 
 
         /*Send button*/
@@ -104,7 +160,11 @@ public class ChatWindow extends Activity {
             super(ctx, 0);
         }
 
+        //return the number of rows in listView
+
+
         /*Lab 4 Step 6: 3 methods for performing different tasks*/
+        @Override
         public int getCount() {
 
             return messageArray.size();
@@ -132,7 +192,16 @@ public class ChatWindow extends Activity {
             message.setText(getItem(position));
             return result;
         }
+
+        //return the database id of the item at specified position
+        public long getItemId(int position) {
+
+            cursor.moveToPosition(position);
+            return cursor.getLong(cursor.getColumnIndex(ChatDatabaseHelper.KEY_id));
+        }
     }
+    }
+
 }
 
 

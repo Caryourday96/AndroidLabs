@@ -27,7 +27,7 @@ public class LoginActivity extends Activity {
         SharedPreferences sharedPref = getApplicationContext().getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
         SharedPreferences.Editor s = sharedPref.edit();
         s.putInt(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
-        s.commit();
+        s.apply();
 
 
         //  SharedPreferences s = getActivity.getPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
